@@ -12,10 +12,7 @@
     + 手动实现组件
 + 后端技术
     + node.js | bun.js
-<<<<<<< HEAD
     + 未来尝试其他技术
-=======
->>>>>>> refs/remotes/origin/main
 
 ### 主要技术
 + Web Socket
