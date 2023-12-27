@@ -1,0 +1,74 @@
+{
+    "热菜": [
+        {
+            "name": "清蒸鲈鱼",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/27/2023122717036749739641.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "雪里红炒豆腐",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/27/2023122717036686366031.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "干豆皮炒南瓜丝",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/27/2023122717036461611521.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "雪里红炒白萝卜丝",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/27/2023122717036461291601.jpg?x-oss-process=style/c320"
+        }
+    ],
+    "凉菜": [
+        {
+            "name": "芹菜拌木耳",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/27/2023122717036748647211.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "拌萝卜干",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/26/2023122617035737044271.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "玉米鲜虾沙拉",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/26/2023122617035594664181.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "贡菜拌金针菇",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/25/2023122517034904582421.jpg?x-oss-process=style/c320"
+        }
+    ],
+    "汤羹": [
+        {
+            "name": "龙骨炖白萝卜",
+            "image": "https://i3.meishichina.com/attachment/recipe/2021/10/16/2021101616343490031161.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "鸭骨架煲山药",
+            "image": "https://i3.meishichina.com/attachment/recipe/2020/01/10/2020011015786579545391.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "鲫鱼萝卜汤",
+            "image": "https://i3.meishichina.com/attachment/recipe/2020/01/10/2020011015786370319299702111.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "咸猪骨山药菜干汤",
+            "image": "https://i3.meishichina.com/attachment/recipe/2020/01/10/2020011015786202605739732003.jpg?x-oss-process=style/c320"
+        }
+    ],
+    "主食": [
+        {
+            "name": "腊肉丁炒饭",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/25/2023122517034904982121.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "排骨咸菜焖饭",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/12/01/2023120117013940161851.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "辣白菜炒饭",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/11/27/2023112717010962987571.jpg?x-oss-process=style/c320"
+        },
+        {
+            "name": "芥蓝腊肠炒饭",
+            "image": "https://i3.meishichina.com/attachment/recipe/2023/11/16/2023111617001114116101.jpg?x-oss-process=style/c320"
+        }
+    ]
+}
