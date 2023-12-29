@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test1</title>
+</head>
+
+<body>
+    <h1>test1</h1>
+
+    <script>
+        const socket = new WebSocket("ws://127.0.0.1:10810/add?table=" + `${1}`);
+
+        socket.onopen = function () {
+        }
+
+        socket.onmessage = function (event) {
+            let data = JSON.parse(event.data);
+            if (data["menu"]) {
+                console.log(data["menu"]);
+            } else if (data["table"]) {
+                console.log(data["table"]);
+            }
+        }
+    </script>
+</body>
+
+</html>
