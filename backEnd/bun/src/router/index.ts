@@ -1,27 +1,28 @@
-import type table from "../table";
+import type { Server } from "bun";
+import type { tableType } from "../table";
 import add from "./add";
 
-function router(tables: table[], url: URL) {
+function router(req: Request, server: Server, tables: tableType[], url: URL): boolean {
     switch (url.pathname) {
         case "/add":
-            switch (add(tables, url.searchParams.get("table"))) {
-                case -1:
-                    console.log("创建失败, 无效的table编号或为空");
-                    break;
-                case 0:
-                    console.log("成功创建table");
-                    break;
-                case 1:
-                    console.log("创建失败, table已经存在");
-                    break;
-                default:
-                    break;
+            const No = url.searchParams.get("table");
+            const table = "table " + No;
+            const status = add(tables, No);
+            if (status === -1) {
+                console.log("Creation failed, Invalid number or empty.");
+            } else {
+                if (status === 0) {
+                    console.log("Created table.");
+                } else {
+                    console.log("Unable to create, The table has been created.");
+                }
+                return server.upgrade(req, { data: { No, table, status } });
             }
-
             break;
         default:
             break;
     }
+    return false;
 }
 
 export default router;

@@ -6,11 +6,13 @@ export class dishType {
 }
 
 type dishTypes = {
-    [key: string]: dishType[],
+    [menu: string]: {
+        [key: string]: dishType[],
+    }
 }
 
-let menu: dishTypes = await Bun.file("./public/cookbook.json").json();
-// console.log(menu["热菜"]);
+let file: dishTypes = await Bun.file("./public/cookbook.json").json();
+// console.log(file);
 
 // 导出menu
-export default menu;
+export default file;

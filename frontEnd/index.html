@@ -17,11 +17,15 @@
         }
 
         socket.onmessage = function (event) {
+            console.log(event.data);
             let data = JSON.parse(event.data);
+            let No = "1"
             if (data["menu"]) {
                 console.log(data["menu"]);
             } else if (data["table"]) {
                 console.log(data["table"]);
+            } else {
+                console.log(data[No].count);
             }
         }
     </script>

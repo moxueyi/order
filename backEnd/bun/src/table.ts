@@ -1,40 +1,50 @@
-import type { dishType } from "./menu";
+export type tableType = { [No: string]: { table: table } };
 
 class table {
-    private No: string;
     private order: {
-        dish: dishType,
+        name: string,
         quantity: number,
     }[];
 
-    constructor(No: string) {
-        this.No = No;
-        this.order = [];
+    constructor() {
+        this.order = []
     }
 
     /**
      * 点菜
      */
-    public pushOrder(dish: dishType): boolean {
+    public pushOrder(dishName: string): boolean {
         for (const item of this.order) {
-            if (item.dish.name === dish.name) {
+            if (item.name === dishName) {
                 return false;
             }
         }
-        this.order.push({ dish, quantity: 1 });
+        this.order.push({ name: dishName, quantity: 1 });
         return true;
     }
 
     /**
      * 加菜
      */
-    public orderAddQuantity(dish: dishType): void {
-        if (!this.pushOrder(dish)) {
+    public addQuantity(dishName: string): void {
+        if (!this.pushOrder(dishName)) {
             for (const item of this.order) {
-                if (item.dish.name === dish.name) {
+                if (item.name === dishName) {
                     item.quantity += 1;
                     return;
                 }
+            }
+        }
+    }
+
+    /**
+     * 减菜
+     */
+    public subQuantity(dishName: string): void {
+        for (let item of this.order) {
+            if (item.name === dishName && item.quantity > 0) {
+                item.quantity -= 1;
+                return;
             }
         }
     }
@@ -46,13 +56,18 @@ class table {
         // this.order转string
         return JSON.stringify(this.order);
     }
+}
 
-    /**
-     * 获取桌号
-     */
-    public getNo(): string {
-        let num = this.No.split(" ")[1];
-        return num;
+export function command(tables: tableType[], No: string, cmd: string, dishName: string) {
+    for (let item of tables) {
+        if (item[No]) {
+            if (cmd === "add") {
+                item[No].table.addQuantity(dishName);
+            } else {
+                item[No].table.subQuantity(dishName);
+            }
+            break;
+        }
     }
 }
 
