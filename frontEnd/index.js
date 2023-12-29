@@ -5,11 +5,14 @@ socket.onopen = function () {
 
 socket.onmessage = function (event) {
     let data = JSON.parse(event.data);
+    console.log(data);
+    let No = "1"
     if (data["menu"]) {
-        console.log(data);
+        console.log(data["menu"]);
     } else if (data["table"]) {
-        let tables = data["table"];
-        console.log(tables);
+        console.log(data["table"]);
+    } else {
+        console.log(data[No]);
     }
 }
 

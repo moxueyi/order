@@ -13,11 +13,7 @@
     <script>
         const socket = new WebSocket("ws://127.0.0.1:10810/add?table=" + `${1}`);
 
-        socket.onopen = function () {
-        }
-
         socket.onmessage = function (event) {
-            console.log(event.data);
             let data = JSON.parse(event.data);
             let No = "1"
             if (data["menu"]) {
@@ -25,9 +21,17 @@
             } else if (data["table"]) {
                 console.log(data["table"]);
             } else {
-                console.log(data[No].count);
+                console.log(data[No]);
             }
         }
+
+        setTimeout(() => {
+            socket.send("menu");
+        }, 3000);
+
+        setTimeout(() => {
+            socket.send("table 1 add 清蒸鲈鱼");
+        }, 3000);
     </script>
 </body>
 

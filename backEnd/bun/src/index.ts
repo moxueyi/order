@@ -1,5 +1,5 @@
 import menu from "./menu";
-import table, { command, type tableType } from "./table";
+import { command, type tableType } from "./table";
 import router from "./router";
 
 let tables: tableType[] = [];
@@ -27,7 +27,8 @@ const server = Bun.serve<tableServer>({
     },
     websocket: {
         open(ws) {
-            // console.log("opened " + `${ws.data.table}`);
+
+            // 分组
             ws.subscribe(`${ws.data.table}`);
             if (ws.data.status === 0) {
                 tableUsers.push({ [`${ws.data.No}`]: { count: 1 } });
@@ -39,16 +40,8 @@ const server = Bun.serve<tableServer>({
                     }
                 }
             }
-            console.log(tableUsers);
 
-            for (let item of tableUsers) {
-                if (item[`${ws.data.No}`]) {
-                    ws.send(JSON.stringify(item));
-                    break;
-                }
-            }
-
-            ws.send(JSON.stringify(menu));
+            // 返回当前桌的点菜情况
             if (ws.data.status != -1) {
                 for (const item of tables) {
                     if (item[ws.data.No]) {
@@ -58,39 +51,45 @@ const server = Bun.serve<tableServer>({
                 }
             }
         },
+
         message(ws, message) {
             let mess = message.toString().split(" ");
             console.log(mess);
             // console.log("the table is " + `${ws.data.table}`);
 
-            if (mess.length === 4) {
+            if (mess.length > 0) {
                 switch (mess[0]) {
+                    case "menu":
+                        ws.send(JSON.stringify(menu));
+                        break;
                     case "table":
                         command(tables, mess[1], mess[2], mess[3]);
+                        for (const item of tables) {
+                            if (item[ws.data.No]) {
+                                ws.publish(`${ws.data.table}`, JSON.stringify(item[ws.data.No]));
+                                break;
+                            }
+                        }
                         break;
                     default:
                         break;
                 }
 
-                for (const item of tables) {
-                    if (item[ws.data.No]) {
-                        ws.publish(`${ws.data.table}`, JSON.stringify(item[ws.data.No]));
-                        break;
-                    }
-                }
             } else {
                 ws.close();
             }
         },
 
         close(ws) {
+            // 用户的退出点餐
+            ws.unsubscribe(`${ws.data.table}`);
             for (let item of tableUsers) {
                 if (item[`${ws.data.No}`]) {
                     item[`${ws.data.No}`].count--;
+                    server.publish(`${ws.data.table}`, JSON.stringify(item));
                     break;
                 }
             }
-            console.log(tableUsers);
 
             console.log(`${ws.data.table}` + " user - 1.");
         },
