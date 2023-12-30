@@ -1,7 +1,8 @@
-import menu from "./menu";
 import { command, type tableType } from "./table";
 import router from "./router";
+import type { dishTypes } from "./menu";
 
+let menu: dishTypes = await Bun.file("cookbook.json").json();
 let tables: tableType[] = [];
 let tableUsers: { [No: string]: { count: number } }[] = [];
 

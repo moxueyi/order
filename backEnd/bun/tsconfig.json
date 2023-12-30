@@ -20,7 +20,7 @@
     "forceConsistentCasingInFileNames": true,
   },
   "include": [
-    "src/**/*",
+    "/**/*",
     "tests/**/*"
-  ]
+, "router"  ]
 }

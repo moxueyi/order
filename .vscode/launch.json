@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug File",
             "program": "${file}",
-            "cwd": "${workspaceFolder}/backEnd/bun/src/",
+            "cwd": "${workspaceFolder}/backEnd/bun",
             "stopOnEntry": false,
             "watchMode": false,
             "internalConsoleOptions": "neverOpen"
@@ -19,7 +19,7 @@
             "request": "launch",
             "name": "Run File",
             "program": "${file}",
-            "cwd": "${workspaceFolder}/backEnd/bun/src/",
+            "cwd": "${workspaceFolder}/backEnd/bun",
             "noDebug": true,
             "watchMode": false,
             "internalConsoleOptions": "neverOpen"
