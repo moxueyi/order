@@ -28,7 +28,7 @@ export function getOrder(No: string): string {
             return JSON.stringify(item[No]);
         }
     }
-    return "{ error: 'No such dish'}";
+    return "{ error: 'No such dish' }";
 }
 
 export default tables;

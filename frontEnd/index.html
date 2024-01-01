@@ -18,18 +18,21 @@
             let No = "1"
             if (data["menu"]) {
                 console.log(data["menu"]);
-            } else if (data["table"]) {
-                console.log(data["table"]);
+            } else if (data["dishList"]) {
+                console.log(data["dishList"]);
             } else {
                 console.log(data[No]);
             }
         }
 
         setTimeout(() => {
-            socket.send("menu");
+            socket.send("menu");          
+            socket.send("order");
         }, 3000);
 
         setTimeout(() => {
+            socket.send("table 1 add 清蒸鲈鱼");
+            socket.send("table 1 add 清蒸鲈鱼");
             socket.send("table 1 add 清蒸鲈鱼");
         }, 3000);
     </script>

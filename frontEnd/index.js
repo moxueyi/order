@@ -9,8 +9,8 @@ socket.onmessage = function (event) {
     let No = "1"
     if (data["menu"]) {
         console.log(data["menu"]);
-    } else if (data["table"]) {
-        console.log(data["table"]);
+    } else if (data["dishList"]) {
+        console.log(data["dishList"]);
     } else {
         console.log(data[No]);
     }
