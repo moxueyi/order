@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 const tableId = ref(null)
 const tips = ref('')
@@ -12,7 +12,6 @@ const emit = defineEmits(['postNum', 'postWs'])
 const postNum = (num) => {
   emit('postNum', num);
 }
-
 //触发发送websocket事件
 const postWs = (ws) => {
   emit('postWs', ws);
@@ -57,7 +56,6 @@ function input() {
 </template>
 
 <style scoped>
-
 #box {
   position: absolute;
   top: 50%;
@@ -73,7 +71,7 @@ function input() {
 
   flex-direction: column;
   align-items: center;
-  //justify-content: center;
+  /* //justify-content: center; */
 
   input {
     width: 60px;

@@ -21,6 +21,7 @@
   },
   "include": [
     "/**/*",
-    "tests/**/*"
-, "router"  ]
+    "tests/**/*",
+    "router"
+  ]
 }

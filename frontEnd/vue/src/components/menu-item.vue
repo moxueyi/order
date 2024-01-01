@@ -1,29 +1,33 @@
 <script setup>
-import Count from "./count.vue"
-import {ref} from "vue";
 
-defineProps({
+const props = defineProps({
+  no: Number,
   name: String,
   imgUrl: String,
-  dishCountNum: Number
+  webs: WebSocket,
+  dishList: Object,
 })
 
+function change(oper, No, name) {
+  if (oper === '+') {
+    props.webs.send(`table ${No} add ${name}`);
+  } else {
+    props.webs.send(`table ${No} sub ${name}`);
+  }
+}
 
 </script>
 
 <template>
   <div id="item-box" class="flex">
     <img :src="imgUrl" alt="">
-    <div id="dishName">{{ name }}</div>
-    <Count></Count>
-    <!--    <div v-for="item in order.values()"></div>-->
-    <!--    <div v-if="item.name === name">-->
-    <!--      <Count :Count="itme.quantity"></Count>-->
-    <!--    </div>-->
-    <!--    <div v-else>-->
-    <!--      <Count v-if="item.name === name" :Count=""></Count>-->
-    <!--    </div>-->
-    <!--    <Count v-if="item.name === name" :Count="dishCountNum "></Count>-->
+    <div id="dishName">{{ props.name }}</div>
+    <div id="count">
+      <button id="sub" @click="change('-', props.no, props.name)">-</button>
+      <div id="countNum">{{ props.dishList[props.name] ? props.dishList[props.name] : 0 }}</div>
+      <button @click="change('+', props.no, props.name)">+</button>
+    </div>
+
   </div>
 </template>
 
@@ -48,4 +52,29 @@ defineProps({
   }
 }
 
+#count {
+  display: flex;
+  align-items: end;
+}
+
+#countNum {
+  text-align: center;
+  width: 1.5rem;
+  padding: 0 3px 0 3px;
+}
+
+button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 0;
+  background-color: #FA7014;
+  color: white;
+}
+
+#sub {
+  background-color: white;
+  color: #FA7014;
+  border: 1px solid #FA7014
+}
 </style>

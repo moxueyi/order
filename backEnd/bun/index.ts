@@ -3,7 +3,12 @@ import type { dishTypes } from "./menu";
 import { command, getOrder } from "./table";
 
 let menu: dishTypes = await Bun.file("cookbook.json").json();
-let tableUsers: { [No: string]: { count: number } }[] = [];
+
+let tableUsers: user = {};
+
+interface user {
+    [No: string]: any;
+}
 
 type tableServer = {
     No: string,
@@ -31,14 +36,9 @@ const server = Bun.serve<tableServer>({
             // 分组
             ws.subscribe(`${ws.data.table}`);
             if (ws.data.status === 0) {
-                tableUsers.push({ [`${ws.data.No}`]: { count: 1 } });
+                tableUsers[`${ws.data.No}`] = 1;
             } else if (ws.data.status === 1) {
-                for (let item of tableUsers) {
-                    if (item[`${ws.data.No}`]) {
-                        item[`${ws.data.No}`].count++;
-                        break;
-                    }
-                }
+                tableUsers[`${ws.data.No}`]++;
             }
         },
 
@@ -60,6 +60,10 @@ const server = Bun.serve<tableServer>({
                         ws.send(getOrder(ws.data.No));
                         ws.publish(`${ws.data.table}`, getOrder(ws.data.No));
                         break;
+                    case "user":
+                        ws.send("{ \"user\": " + tableUsers[`${ws.data.No}`] + " }");
+                        ws.publish(`${ws.data.table}`, "{ \"user\": " + tableUsers[`${ws.data.No}`] + " }");
+                        break;
                     default:
                         break;
                 }
@@ -71,14 +75,8 @@ const server = Bun.serve<tableServer>({
         close(ws) {
             // 用户的退出点餐
             ws.unsubscribe(`${ws.data.table}`);
-            for (let item of tableUsers) {
-                if (item[`${ws.data.No}`]) {
-                    item[`${ws.data.No}`].count--;
-                    server.publish(`${ws.data.table}`, JSON.stringify(item));
-                    break;
-                }
-            }
-
+            tableUsers[`${ws.data.No}`]--;
+            server.publish(`${ws.data.table}`, "{ \"user\": " + tableUsers[`${ws.data.No}`] + " }");
             console.log(`${ws.data.table}` + " user - 1.");
         },
     },
