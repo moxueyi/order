@@ -7,7 +7,7 @@ interface order {
 const tables: tablelist[] = [];
 
 export function command(No: string, cmd: string, name: string) {
-    tables.forEach((item => {
+    for (let item of tables) {
         if (item[No]) {
             if (!item[No].dishList[name]) {
                 item[No].dishList[name] = 0;
@@ -17,9 +17,9 @@ export function command(No: string, cmd: string, name: string) {
             } else if (item[No].dishList[name] > 0) {
                 item[No].dishList[name]--;
             }
+            return;
         }
-    }))
-    console.log(tables);
+    }
 }
 
 export function getOrder(No: string): string {
