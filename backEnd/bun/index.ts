@@ -1,9 +1,8 @@
-import { command, type tableType } from "./table";
 import router from "./router";
 import type { dishTypes } from "./menu";
+import { command, getOrder } from "./table";
 
 let menu: dishTypes = await Bun.file("cookbook.json").json();
-let tables: tableType[] = [];
 let tableUsers: { [No: string]: { count: number } }[] = [];
 
 type tableServer = {
@@ -17,7 +16,7 @@ const server = Bun.serve<tableServer>({
     port: 10810,
     fetch(req, server) {
         const url = new URL(req.url);
-        const success = router(req, server, tables, url);
+        const success = router(req, server, url);
 
         // console.log(tables);
 
@@ -41,16 +40,6 @@ const server = Bun.serve<tableServer>({
                     }
                 }
             }
-
-            // 返回当前桌的点菜情况
-            if (ws.data.status != -1) {
-                for (const item of tables) {
-                    if (item[ws.data.No]) {
-                        ws.send(JSON.stringify(item[ws.data.No]));
-                        break;
-                    }
-                }
-            }
         },
 
         message(ws, message) {
@@ -63,19 +52,17 @@ const server = Bun.serve<tableServer>({
                     case "menu":
                         ws.send(JSON.stringify(menu));
                         break;
+                    case "order":
+                        ws.send(getOrder(ws.data.No));
+                        break;
                     case "table":
-                        command(tables, mess[1], mess[2], mess[3]);
-                        for (const item of tables) {
-                            if (item[ws.data.No]) {
-                                ws.publish(`${ws.data.table}`, JSON.stringify(item[ws.data.No]));
-                                break;
-                            }
-                        }
+                        command(mess[1], mess[2], mess[3]);
+                        ws.send(getOrder(ws.data.No));
+                        ws.publish(`${ws.data.table}`, getOrder(ws.data.No));
                         break;
                     default:
                         break;
                 }
-
             } else {
                 ws.close();
             }

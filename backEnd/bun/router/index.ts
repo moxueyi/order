@@ -1,13 +1,12 @@
 import type { Server } from "bun";
-import type { tableType } from "../table";
 import add from "./add";
 
-function router(req: Request, server: Server, tables: tableType[], url: URL): boolean {
+function router(req: Request, server: Server, url: URL): boolean {
     switch (url.pathname) {
         case "/add":
             const No = url.searchParams.get("table");
             const table = "table " + No;
-            const status = add(tables, No);
+            const status = add(No);
             if (status === -1) {
                 console.log("Creation failed, Invalid number or empty.");
             } else {
